@@ -1,30 +1,32 @@
 ## Home git server
 
-Probably you use [git](https://git-scm.com/) repository hosted by [Github](https://github.com/), [GitLab](https://about.gitlab.com/) or another third-party service.
+# Idea
 
-In some cases like privacy, speed,  you would like to host a git server at home, and I'm not talking about GitHub Enterprise ;) A simple solution like [Gitea](https://gitea.io/en-us/) or [OneDev](https://code.onedev.io/) exists and will provide "GitHub like" experience.
+I need a place where I can keep my private projects prajwet, and I don't need any GUI, WebUI for that, I'll not open tickets for myself. I can spend this time better.
 
-But in my opinion for single user/home lab, they are overkill. As it turns out to have git server you only need git and ssh. I'll show a simple setup of a home git server that will work great, of course without WebUI, PR, Actions, stars and social aspects,  just a plain repository server.
+Instead of creating a private repository at [Github](https://github.com/) I'll set up my own git server at home.
+
 
 ## Hardware/platform
 
-For my server, I use [NanoPi NEO3](https://www.friendlyelec.com/index.php?route=product/product&path=69&product_id=279) SBC connected to my LAN with [DietPi](https://dietpi.com/) running just git and OpenSSH. 
+I'll use [NanoPi NEO3](https://www.friendlyelec.com/index.php?route=product/product&path=69&product_id=279) SBC connected to my LAN with [DietPi](https://dietpi.com/) running just git and OpenSSH. 
 
-DietPi is based on Debian/Ubuntu but this tutorial will be distribution agnostic and should work as long git and ssh server are there.
+It's nice, small and uses the right (tiny) amount of energy.
 
 ## Setup
 
-First login to your remote machine over SSH, from now on all commands are executed on a remote machine that will be git server.
+From now on all commands are executed on a remote machine that will be git server.
 
-### Let's configure Git as a new shell
+### Configure Git as a new shell
 
 ```
 sudo echo `which git-shell` >> /etc/shells
 ```
+[Command explanation.](https://explainshell.com/explain?cmd=sudo+echo+%60which+git-shell%60+%3E%3E+%2Fetc%2Fshells)
 
-`git-shell` is a limited shell that will be used for our new user as he doesn't need many privileges on this machine. 
+`git-shell` is a limited shell that will be used for the new users as he doesn't need many privileges on this machine. And provides some benefits, check `newrepo` command.
 
-Your list of shells should look something like this now:
+The list of shells should look something like this:
 
 ```
 $ cat /etc/shells 
@@ -45,12 +47,11 @@ $ cat /etc/shells
 ```
 sudo useradd -r -m -U -d /home/git -s /usr/bin/git-shell git
 ```
-
-A new user will be created, with `git-shell` as shell and `/home/git` as home directory. No password was set as the login will be possible only using the ssh keys.
+[Command explanation.](https://explainshell.com/explain?cmd=sudo+useradd+-r+-m+-U+-d+%2Fhome%2Fgit+-s+%2Fusr%2Fbin%2Fgit-shell+git)
 
 ### Setup new user
 
-Usually, on this point, you will do `su - git` and do the configuration as git user, but since `git-shell` was used we can't do it and need to use sudo a few more times.
+Need to configure new user, password logins and interactive sessions are off the table so need to use the root account to do the initial configuration.
 
 ```
 sudo cd /home/git
@@ -60,7 +61,10 @@ sudo touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys
 sudo chown -R git:git /home/git
 ```
 
-Now we need to copy our public ssh key from the client machine to `.ssh/authoized_keys` to make this setup usable. This can be done using `vim /home/git/.ssh/authorized_keys` and pasting public keys, more keys can be added in separate lines to provide collaboration or use different keys from different client machines.
+Now take your **public** ssh key from your client machine and put it in 
+`.ssh/authoized_keys` to make this setup usable. 
+This can be done using `vim /home/git/.ssh/authorized_keys` and pasting public keys, more keys can be added in separate lines to provide collaboration or use different keys from different client machines.
+
 
 `/home/git/` directory at this stage.
 ``` 
@@ -78,9 +82,8 @@ drwxr-xr-x 3 git git 4096 Mar 14 18:07 ..
 -rw------- 1 git git  107 Mar 14 18:14 authorized_keys
 ```
 
-### More setup
+### Create directory to store repositories
 
-Now we need a way to create new repositories.
 
 ```
 sudo mkdir /home/git/git-shell-commands 
@@ -110,14 +113,14 @@ chmod +x /home/git/git-shell-commands/newrepo
 chown -R git:git /home/git/repo
 ```
 
-This is a very, very short version of the script that will create a new repository. Please check out this repository to get better scripts.
+`//TODO: Improve this script, or take code from this repo:`
 
 %[https://github.com/git-utilities/git-shell-commands]
 
 
 ### Repository creation
 
-At this point in time, your server should be ready for your first repository. Usually this means that you need to log in with *git* user to your server and execute the following commands:
+From now on no need to login to the server host to create a new repository with much typing, like this:
 
 ```
 ssh git@gitserver 
@@ -128,8 +131,6 @@ $ git init --bare
 Initialized empty Git repository in /repo/project.git/
 ```
 
-But as we use `git-sell` this will not work ;) and it should stay that way. 
-
 The only command that needs to be executed to create a new repository, and made from the client workstation is this one:
 
 ```
@@ -138,6 +139,8 @@ Initialized empty Git repository in /repo/testrepo.git/
 ```
 
 Simple one line, as ssh keys are used there is no need to use the password for login in. This way remote repositories can be created in a simple and elegant way.
+
+## Testing
 
 ```
 ❯ git clone git@gitserver:/repo/testrepo.git
@@ -166,7 +169,7 @@ To gitserver:/repo/testrepo.git
 
 Will clone this repository to the client machine
 
-### Final word
+### Final word and planed improvements
 
 This is a simple and convenient setup for the home git repository. 
 
