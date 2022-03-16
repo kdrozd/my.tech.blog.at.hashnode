@@ -138,6 +138,16 @@ ssh git@gitserver newrepo testrepo.git
 Initialized empty Git repository in /repo/testrepo.git/
 ```
 
+Actually, it will be a greater idea to put this command in a separate `bash` script in `~/bin` so repositories can be created from any place and checked out.
+
+```
+ #!/usr/bin/env bash
+ 
+ ssh git@gitserver newrepo $1
+ git clone git@gitserver:/repo/$1
+```
+Put this in `~/bin/newrepo` file and `chmod +x ~/bin/newrepo`.
+
 Simple one line, as ssh keys are used there is no need to use the password for login in. This way remote repositories can be created in a simple and elegant way.
 
 ## Testing
