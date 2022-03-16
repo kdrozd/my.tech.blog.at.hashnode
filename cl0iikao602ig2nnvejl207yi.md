@@ -23,3 +23,11 @@ Some tools are small and do just one thing but very well. Some do the same thing
 
 Some tools are integrated, they keep you locked inside and provide all you need. Will speak about them too.
 
+## This blog
+
+I'm editing this post as I decided to change my approach to blogging. I'll not blog.
+
+As this implies writing to someone and helping him, and takes time. I'll rather write a diary to myself with all the ideas and tools I'm playing with so I don't need to look up in browser history for that page where it was described. 
+
+It will be all for me, in short, but explained way. Hey you can read it to, and I home you will like it :)
+
