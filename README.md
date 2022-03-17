@@ -1,5 +1,8 @@
 # My blog backup
 
+This repository contains backup of articles published on my blog https://tech.drozd.nl/ please "like, comment, share and subscribe".
+
+I use this repository as [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) in my [Obsidian](https://obsidian.md/) to have them next to all materials.
 
 ## Articles 
 
