@@ -6,7 +6,7 @@ I plan to have something close to 500k classes. That's a lot. They will provide 
 
 ## Keep metadata close to code
 
-There are a few ways to do it keeping metadata close to the main code. This gives a lot of convenience as code and data can be kept in the same editor and edited at the same time. To be honest I like this approach.
+There are a few ways to do it, keeping metadata close to the main code. This gives a lot of convenience as code and data can be kept in the same editor and edited at the same time. To be honest, I like this approach.
 
 ### Interfaces and abstract classes
 
@@ -49,7 +49,7 @@ Examples:
 
 ### Annotations
 
-This is the way. Probably the most popular approach in the Java world, Swagger/OpenAPI are great examples and they are very close to what I'm trying to do.
+This is the way. Probably the most popular approach in the Java world, Swagger/OpenAPI are great examples, and they are very close to what I'm trying to do.
 
 ```
 @OpenAPIDefinition(
@@ -78,11 +78,11 @@ This is more natural but require some work upfront as all these annotations have
 
 ## Externalize metadata
 
-Sometimes it's not possible to implement an interface or add annotations to a class especially when it's an external dependency. In this case, I would use some external files to provide metadata and use bind them to the main code. 
+Sometimes it's not possible to implement an interface or add annotations to a class, especially when it's an external dependency. In this case, I would use some external files to provide metadata and use to bind them to the main code. 
 
 ### The easy way
 
-Nothing fancy. Use TOML, YAML, JSON or just properties files to add anything you need in some well-defined way. Throw some of your favourite deserialization library and you are done. If you put structure to any text format and you are getting DSL (dam silly language)© After deserialization such data can be processed as usual. In JSON they can be stored in many databases.
+Nothing fancy. Use TOML, YAML, JSON or just properties files to add anything you need in some well-defined way. Throw some of your favourite deserialization library, and you are done. If you put structure to any text format, and you are getting DSL (dam silly language)© After deserialization such data can be processed as usual. In JSON they can be stored in many databases.
 
 ## Textual DSL - Domain Specific Language
 
@@ -92,7 +92,7 @@ Now we are speaking with big bois, I played with [Xtext](https://www.eclipse.org
 
 Still, the design and implementation of non-trivial language take "few days". 
 
-Xtext is not the only one but more practical (in development) is my go-to choice. https://langium.org/ may be another one soon.
+Xtext is not the only one, but more practical (in development) is my go-to choice. https://langium.org/ may be another one soon.
 
 ## Projectional DSL
 
@@ -103,18 +103,18 @@ Usually, if you have a problem and try to solve it with Java you have
 
 ![Zrzut ekranu z 2022-03-21 21-18-45.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1647893947654/M_4zMLcRL.png)
 
-Don't get me wrong, [Meta Programming System](https://www.jetbrains.com/mps/) is great and I've to mention it on this list. but that's huge overkill for my problem and most of yours.
+Don't get me wrong, [Meta Programming System](https://www.jetbrains.com/mps/) is great, and I've to mention it on this list. But that's huge overkill for my problem and most of yours.
 
 It helps to build languages where there are no limits, look what they did to `C`: http://mbeddr.com/.
 
 ## What to use.
 
-All contestants have good and bad points. But as I would love to have nice DSL to support my project I can't afford it. For now, I'll be the one that will have to build it and put the data. Code and metadata will have to be together as there is no practical benefit of DSL and tool support that annotations in Java will not give me, additional reassurance comes out counting how many projects uses DSL vs annotations and are targeted to technical people/developers.
+All contestants have good and bad points. But as I would love to have nice DSL to support my project, I can't afford it. For now, I'll be the one that will have to build it and put the data. Code and metadata will have to be together as there is no practical benefit of DSL and tool support that annotations in Java will not give me, additional reassurance comes out of counting how many projects uses DSL vs annotations and are targeted to technical people/developers.
 
 
 ps.
 
-I'm looking forward to Xtext/MSP projects so stay tuned. 
+I'm looking forward to Xtext/MSP projects, so stay tuned. 
 
 
 
